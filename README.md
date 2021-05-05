@@ -1,6 +1,6 @@
 # Virtual-Piano
 
-Piano Virtual para treinar conceitos da linguagem javascript
+Piano Virtual para treinar a DOM da linguagem javascript
 
 ## Tecnologias Usadas:
 
