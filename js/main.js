@@ -1,16 +1,7 @@
 //get all keys
 const keys = document.querySelectorAll('.key');
 
-//get all audios
-const audios = document.querySelectorAll('.audios');
-//console.log(audios[1].children[0].dataset.key);
-//console.log(audios.children);
-//const teste = document.getElementById('teste');
-//
-//teste.setAttribute('autoplay');
-//console.log(audios);
-//console.log(teste);
-//playing notes
+//play notes
 function playNotes(event) {
     let audioKeyCode = getKeyCode(event);
     const key = document.querySelector(`.key[data-key="${audioKeyCode}"`);
@@ -23,6 +14,7 @@ function playNotes(event) {
     audio.play();
 }
 
+//return key
 function getKeyCode(event) {
     //  console.log(event);
     let keyCode;
@@ -34,16 +26,16 @@ function getKeyCode(event) {
     }
     return keyCode;
 }
-//click mouse
 
+//click mouse
 keys.forEach(function (key) {
     key.addEventListener("click", playNotes);
 })
 
-
+//keyboard type
 window.addEventListener("keydown", playNotes);
 
 
-//click with notes
 
-//keyboard type
+
+
