@@ -1,27 +1,8 @@
-//get all keys
 const keys = document.querySelectorAll('.key');
 
-//play notes
-function playNotes(event) {
-    let audioKeyCode = getKeyCode(event);
-    const key = document.querySelector(`.key[data-key="${audioKeyCode}"`);
-    const cantFoundAnyKey = !key;
-    if (cantFoundAnyKey) {
-        return;
-    }
-    playAudio(audioKeyCode);
-}
-
-function playAudio(audioKeyCode) {
-    const audio = document.querySelector(`audio[data-key="${audioKeyCode}"`);
-    audio.currenTime = 0;
-    audio.play();
-}
-
-//return key
 function getKeyCode(event) {
+    const isKeyboard = event.type == 'keydown';
     let keyCode;
-    const isKeyboard = event.type == "keydown";
     if (isKeyboard) {
         keyCode = event.keyCode;
     } else {
@@ -30,15 +11,36 @@ function getKeyCode(event) {
     return keyCode;
 }
 
-//click mouse
-keys.forEach(function (key) {
-    key.addEventListener("click", playNotes);
-})
+function playNotes(event) {
+    const keyCode = getKeyCode(event);
+    const key = document.querySelector(`.key[data-key='${keyCode}']`);
 
-//keyboard type
-window.addEventListener("keydown", playNotes);
+    const cantFoundKey = !key;
+    if (cantFoundKey) {
+        return;
+    }
+    const audioPlayCode = document.querySelector(`audio[data-key='${keyCode}']`);
+    audioPlayCode.currentTime = -1;
+    addClassPlaying(key);
+    audioPlayCode.play();
+}
 
+function addClassPlaying(key) {
+    key.classList.add("playing");
+}
 
+function removePlayingClass(key) {
+    key.target.classList.remove("playing");
+}
 
+function registerEvents() {
+    keys.forEach(function (event) {
+        event.addEventListener("click", playNotes);
+        event.addEventListener("transitionend", removePlayingClass);
+    })
+    //keyboard type
+    window.addEventListener('keydown', playNotes);
+}
 
+window.addEventListener('load', registerEvents());
 
