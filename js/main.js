@@ -9,6 +9,10 @@ function playNotes(event) {
     if (cantFoundAnyKey) {
         return;
     }
+    playAudio(audioKeyCode);
+}
+
+function playAudio(audioKeyCode) {
     const audio = document.querySelector(`audio[data-key="${audioKeyCode}"`);
     audio.currenTime = 0;
     audio.play();
@@ -16,7 +20,6 @@ function playNotes(event) {
 
 //return key
 function getKeyCode(event) {
-    //  console.log(event);
     let keyCode;
     const isKeyboard = event.type == "keydown";
     if (isKeyboard) {
